@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Rango</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Rango says...</h1>
+    <p>Here is the about page.</p>
+    <p>This tutorial has been put together by Bowen Sun.</p>
+
+    <a href="{% url 'rango:index' %}">Back to Home</a><br />
+
+    <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
+    <img src="/media/cat.jpg" alt="Picture of a Cat." />
+</body>
+</html>
