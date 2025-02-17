@@ -11,9 +11,22 @@
         hey there partner! <br />
         <strong>{{ boldmessage }}</strong><br />
     </div>
+
     <div>
         <a href="{% url 'rango:about' %}">About</a><br />
         <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
     </div>
+
+    <hr>
+
+    <h2>Top Categories</h2>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'rango:category' category.name %}">{{ category.name }}</a></li>
+        {% empty %}
+            <li>No categories available.</li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>

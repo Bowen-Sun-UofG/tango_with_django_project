@@ -1,0 +1,11 @@
+<h1>{{ category.name }}</h1>
+
+{% if pages %}
+    <ul>
+        {% for page in pages %}
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No pages available for this category.</p>
+{% endif %}
