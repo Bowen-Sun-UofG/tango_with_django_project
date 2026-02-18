@@ -6,9 +6,22 @@
 
 <body>
     <h1>Rango says...</h1>
+
     <div>
         hey there partner! <br />
-        <strong>{{ boldmessage }}</strong>
+        <strong>Top Categories:</strong>
+        <br />
+
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                    <li>{{ category.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
     </div>
+
 </body>
 </html>
