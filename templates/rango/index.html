@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rango</title>
-</head>
+{% extends 'rango/base.html' %}
 
-<body>
+{% block title_block %}
+    Home
+{% endblock %}
+
+{% block body_block %}
     <h1>Rango says...</h1>
-
     <div>
         hey there partner! <br />
         <strong>Top Categories:</strong>
@@ -22,6 +21,4 @@
             <strong>There are no categories present.</strong>
         {% endif %}
     </div>
-
-</body>
-</html>
+{% endblock %}
