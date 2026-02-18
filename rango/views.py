@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -8,8 +7,8 @@ from rango.forms import UserForm, UserProfileForm
 
 
 def index(request):
-    categories = Category.objects.order_by('name')[:5]
-    context_dict = {'categories': categories}
+    category_list = Category.objects.order_by('-likes')[:5]
+    context_dict = {'categories': category_list}
     return render(request, 'rango/index.html', context=context_dict)
 
 
@@ -31,6 +30,10 @@ def register(request):
 
             profile = profile_form.save(commit=False)
             profile.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
             profile.save()
 
             registered = True
@@ -40,11 +43,11 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(
-        request,
-        'rango/register.html',
-        context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
-    )
+    return render(request,
+                  'rango/register.html',
+                  context={'user_form': user_form,
+                           'profile_form': profile_form,
+                           'registered': registered})
 
 
 def user_login(request):
@@ -57,11 +60,13 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('rango:index')
-            return HttpResponse("Your Rango account is disabled.")
-        return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'rango/login.html')
+                return render(request, 'rango/index.html')
+            else:
+                return render(request, 'rango/login.html', {'error': 'Your Rango account is disabled.'})
+        else:
+            return render(request, 'rango/login.html', {'error': 'Invalid login details supplied.'})
+
+    return render(request, 'rango/login.html')
 
 
 @login_required
@@ -72,4 +77,4 @@ def restricted(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect('rango:index')
+    return render(request, 'rango/index.html')

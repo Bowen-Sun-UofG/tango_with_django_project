@@ -1,24 +1,19 @@
 {% extends 'rango/base.html' %}
 
-{% block title_block %}
-    Home
-{% endblock %}
+{% block title_block %}Home{% endblock %}
 
 {% block body_block %}
-    <h1>Rango says...</h1>
-    <div>
-        hey there partner! <br />
-        <strong>Top Categories:</strong>
-        <br />
+<h1>Rango says...</h1>
+hey there partner! <br />
+<strong>Top Categories:</strong>
 
-        {% if categories %}
-            <ul>
-                {% for category in categories %}
-                    <li>{{ category.name }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no categories present.</strong>
-        {% endif %}
-    </div>
+{% if categories %}
+<ul>
+    {% for category in categories %}
+    <li>{{ category.name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<strong>There are no categories present.</strong>
+{% endif %}
 {% endblock %}
